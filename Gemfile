@@ -60,7 +60,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'pry', '~> 0.14.1'
 gem 'factory_bot_rails', '~> 6.2'
 gem 'devise', '~> 4.8'
-gem 'rubocop-rails', require: false
+# gem 'rubocop-rails', require: false
 
 group :development do
   gem 'better_errors', '~> 2.1', '>= 2.1.1'
