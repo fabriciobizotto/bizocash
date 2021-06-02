@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bizo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+<head>
+    <title>JumpstartAppPlain</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+</head>
 
-  <body>
+<body class="bg-gray-100 h-screen">
     <%= render "partial/navbar" %>
-    <%= yield %>
-  </body>
+    <div class="flex h-full justify-around">
+        <%= yield %>
+    </div>
+</body>
 </html>
