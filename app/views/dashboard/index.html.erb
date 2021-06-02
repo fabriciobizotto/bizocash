@@ -2,28 +2,15 @@
     <div class="px-4 py-4">
         <h1>Dashboard#index</h1>
         <p>Find me in app/views/dashboard/index.html.erb</p>
-        <%= current_user.inspect %>
+
+        <div class="py-6">
+            <% if current_user %>
+                <%= "Olá, #{current_user.email}" %>
+            <% else %>
+                
+            <% end %>
+        </div>
     </div>
+    
 
 </div>
-
-<%#<div class="bg-white h-screen flex flex-col w-full">
- <div class="h-screen bg-gradient-to-r from-green-400 to-blue-500">
-  <div class="px-4 py-48">
-   <div class="relative w-full text-center">
-    <h1
-     class="animate-pulse font-bold text-gray-200 text-2xl mb-6">
-        Dashboard#index
-    </h1>
-    <p>Find me in app/views/dashboard/index.html.erb</p>
-   </div>
-
-   <div class="my-20 relative w-full text-center whitespace-pre-wrap text-xs font-light shadow">
-    <code><= current_user.inspect ></code>
-   </div>
-   
-  </div>
- </div>
-</div>
-
-%>
