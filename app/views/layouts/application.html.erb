@@ -12,7 +12,9 @@
   </head>
 
   <body>
-    <%= render "partial/navbar" %>
-    <%= yield %>
+    <main class="bg-white h-screen flex flex-col w-full">
+      <%= render "partial/navbar" %>
+      <%= yield %>
+    </main>
   </body>
 </html>

@@ -8,8 +8,8 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
-import "../styles/application.scss";
-require("styles/application.scss")
+import 'alpinejs'
+import "../styles/application.scss"
 
 Rails.start()
 Turbolinks.start()
