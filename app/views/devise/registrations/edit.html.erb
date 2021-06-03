@@ -13,57 +13,67 @@
   <%#= render "devise/shared/error_messages", resource: resource %>
   <%= devise_error_messages! %>
 
-  <div class="mb-4">
-      <%= f.label :avatar, class: "block font-bold mb-2 text-gray-700 text-sm"  %><br />
-      <%= f.file_field :avatar %>
-      <%
-=begin%>
- <%= image_tag(resource.avatar_thumbnail)  %> 
-<%
-=end%>
-  </div>
 
-  <div class="mb-4">
-    <%= f.label :email, class: "block font-bold mb-2 text-gray-700 text-sm"  %><br />
-    <%= f.email_field :email,
-                              autofocus: true,
-                              autocomplete: "email",
-                              class: "appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none shadow focus:shadow-outline" %>
+  <div class="grid grid-cols-2 gap-6">
+    <div>
+      <%= f.label :email, class: "block font-bold text-gray-700 text-sm"  %>
+      <%= f.email_field :email,
+        autofocus: true,
+        autocomplete: "email",
+        class: "appearance-none w-full text-gray-700 leading-tight focus:outline-none shadow focus:shadow-outline" %>
+    </div>
+
+    <div>
+      <%= f.label :avatar, class: "block text-sm font-medium text-gray-700"  %>
+      <div class="flex items-start">
+        <span class="inline-block h-12 rounded-full overflow-hidden bg-gray-100">
+          <%= image_tag resource.avatar_thumbnail %>
+        </span>
+        <button type="button" class="ml-5 bg-white py-2 px-3 border border-gray-300 shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          <%= f.file_field :avatar %>
+        </button>
+      </div>
+    </div>
+  
   </div>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
   <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <div class="mb-4">
-    <%= f.label :password, class: "block font-bold mb-2 text-gray-700 text-sm" %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" %>
+  <div class="grid grid-cols-3 gap-4">
+
+    <div>
+      <%= f.label :password, class: "block font-bold text-gray-700 text-sm" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div>
+      <%= f.label :password_confirmation, class: "block font-bold text-gray-700 text-sm"  %>
+      <%= f.password_field :password_confirmation,
+                                  autocomplete: "new-password",
+                                  class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              %>
+    </div>
+
+    <div>
+      <%= f.label :current_password, class: "block font-bold text-gray-700 text-sm" %>
+      <%= f.password_field :current_password,
+        autocomplete: "current-password",
+        class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        %>
+    </div>
 
   </div>
 
-  <div class="mb-4">
-    <%= f.label :password_confirmation, class: "block font-bold mb-2 text-gray-700 text-sm"  %>
-    <%= f.password_field :password_confirmation,
-                                 autocomplete: "new-password",
-                                 class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            %>
-  </div>
-
-  <div class="mb-4">
-    <%= f.label :current_password, class: "block font-bold mb-2 text-gray-700 text-sm" %>
-    <%= f.password_field :current_password,
-                                 autocomplete: "current-password",
-                                 class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                                 
-            %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update", class: "button bg-blue-500 hover:bg-blue-700 font-bold text-white focus:outline-none py-2 px-4 rounded focus:shadow-outline w-full" %>
+  <div class="w-full mt-2">
+    <div>
+      <%= link_to "Voltar", :back, class: "button bg-white-500 hover:bg-white-700 font-bold focus:outline-none py-2 px-4 focus:shadow-outline" %>
+      <%= f.submit "Update", class: "button bg-blue-500 hover:bg-blue-700 font-bold text-white focus:outline-none py-2 px-4  focus:shadow-outline" %>
+    </div>
+    <div class="mt-6">
+      <%= button_to "Excluir minha conta", registration_path(resource_name), data: { confirm: "Tem Certeza?" }, method: :delete, class: 'button bg-white text-red-600' %>
+    </div>
   </div>
   <% end %>
-
-  <p>Unhappy? <span><%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></span></p>
-
-  <%= link_to "Back", :back %>
 </div>

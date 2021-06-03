@@ -44,7 +44,7 @@
 
                 <td class="w-full lg:w-auto p-3 text-gray-800 block text-center border border-b lg:table-cell relative lg:static">
                     <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-                    <%= link_to 'Edit', account, class: 'text-blue-400 hover:text-blue-600 underline' %>
+                    <%= link_to 'Edit', edit_account_path(account), class: 'text-blue-400 hover:text-blue-600 underline' %>
                     <%= link_to 'Delete', account_path(account), method: :delete, class: 'text-blue-400 hover:text-blue-600 underline' %>
                 </td>
               <% end %>
