@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="antialiased">
   <head>
     <title>Bizo</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,10 +11,21 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <main class="bg-white h-screen flex flex-col w-full">
+  <body class="font-sans font-normal leading-normal h-screen bg-gradient-to-b from-indigo-100 to-indigo-200">
+    <%= render "partial/navbar" %>
+    
+    <%= render "shared/flash_notice" %>
+      <!--<= render "shared/header" %>-->
+    <main class="px-4 lg:px-10">
+      <%= content_for?(:content) ? yield(:content) : yield %>
+    </main>
+    <%
+=begin%>
+ <main class="bg-white h-screen flex flex-col w-full">
       <%= render "partial/navbar" %>
       <%= yield %>
-    </main>
+    </main> 
+<%
+=end%>
   </body>
 </html>
