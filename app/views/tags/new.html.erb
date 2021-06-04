@@ -1,0 +1,13 @@
+<%- model = Tag %>
+
+<div class="flex w-full">
+  <div class="bg-white rounded shadow-2xl p-4 mt-1 w-full">
+    <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-1">
+      <%= t('helpers.titles.newa', model: model.model_name.human.downcase) %>
+    </h1>
+
+    <%= render 'form', tag: @tag %>
+
+    <%= link_to t('helpers.links.back'), tags_path, class: 'button bg-white-500 hover:bg-white-700 font-bold focus:outline-none py-2 focus:shadow-outline' %>
+  </div>
+</div>

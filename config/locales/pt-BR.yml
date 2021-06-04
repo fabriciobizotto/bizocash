@@ -10,11 +10,15 @@ pt-BR:
     models:
       user: Usuário
       account: Conta
+      tag: Tag
     attributes:
       account:
         name: Nome
         active: Ativo
         investment: Investimento
+      tag:
+        name: Nome
+        active: Ativo
   date:
     abbr_day_names:
     - dom
@@ -159,6 +163,9 @@ pt-BR:
       create: Criar %{model}
       submit: Salvar %{model}
       update: Atualizar %{model}
+    titles:
+      new: Novo %{model}
+      newa: "Nova %{model}"
   number:
     currency:
       format:

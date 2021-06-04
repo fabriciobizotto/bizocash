@@ -1,0 +1,65 @@
+<%- model = Tag %>
+
+<div class="flex flex-col mt-2">
+  <div class="-my-1 overflow-x-auto">
+    <div class="py-1 inline-block min-w-full">
+      <div class="shadow overflow-hidden border-b border-gray-600">
+
+        <div class="pb-4 pl-4 bg-white">
+          <div class="flex pt-4">
+            <%= link_to new_tag_path, class: '' do %>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            <% end %>
+
+            <p class="ml-3 text-2xl">Tags</p>
+          </div>
+        </div>
+
+        <%= content_tag :table, id: "tags_datatable", class: 'min-w-full divide-y divide-gray-200', role: :datatable, data: { url: tags_path(format: :json)} do %>
+        <thead class="bg-gray-50">
+          <tr>
+                        <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell">
+              <%= model.human_attribute_name(:name) %>
+            </th>
+                        <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell">
+              <%= model.human_attribute_name(:active) %>
+            </th>
+            <th><%= t('helpers.actions') %></th>
+          </tr>
+        </thead>
+        
+        <tbody class="bg-white divide-y divide-gray-200">
+          <% if @tags.empty? %>
+            <%= content_tag :tr do %>	
+              <td colspan=3 class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
+                  Nenhum registro encontrado
+              </td>
+            <% end %>
+          <% end %>
+          <% @tags.each do |tag| %>
+            <%= content_tag :tr, id: dom_id(tag), class: dom_class(tag) do %>	
+                <td class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
+                  <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">name</span>
+                  <%= tag.name %>
+                </td>
+                <td class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
+                  <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">active</span>
+                  <%= tag.active %>
+                </td>
+                            <td class="w-full lg:w-auto p-3 text-gray-800 block text-center border border-b lg:table-cell relative lg:static">
+                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= t('helpers.actions') %></span>
+                <%= link_to 'Show', tag %>
+                <%= link_to 'Edit', edit_tag_path(tag), class: 'text-blue-400 hover:text-blue-600 underline' %>
+                <%= link_to 'Delete', tag_path(tag), method: :delete, class: 'text-blue-400 hover:text-blue-600 underline' %>
+              </td>
+            <% end %>
+          <% end %>
+        </tbody>
+      <% end %>
+        
+      </div>
+    </div>
+  </div>
+</div>

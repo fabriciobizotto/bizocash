@@ -1,9 +1,13 @@
-<div class="container mx-auto my-8 px-4">
-  <div class="max-w-xl mx-auto">
-    <h1 class="text-2xl font-bold mb-6">New <%= singular_table_name.titleize %></h1>
+<%%- model = <%= singular_table_name.camelize %> %>
+
+<div class="flex w-full">
+  <div class="bg-white rounded shadow-2xl p-4 mt-1 w-full">
+    <h1 class="block w-full text-center text-gray-800 text-2xl font-bold mb-1">
+      <%%= t('helpers.titles.new', model: model.model_name.human.downcase) %>
+    </h1>
 
     <%%= render 'form', <%= singular_table_name %>: @<%= singular_table_name %> %>
 
-    <%%= link_to 'Back', <%= index_helper %>_path, class: "link" %>
+    <%%= link_to t('helpers.links.back'), <%= plural_table_name %>_path, class: 'button bg-white-500 hover:bg-white-700 font-bold focus:outline-none py-2 focus:shadow-outline' %>
   </div>
 </div>
