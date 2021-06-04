@@ -61,6 +61,7 @@ gem 'pry', '~> 0.14.1'
 gem 'factory_bot_rails', '~> 6.2'
 gem 'devise', '~> 4.8'
 # gem 'rubocop-rails', require: false
+gem 'pagy', '~> 3.5'
 
 group :development do
   gem 'better_errors', '~> 2.1', '>= 2.1.1'

@@ -1,5 +1,6 @@
 module ApplicationHelper
-
+    include Pagy::Frontend
+    
     def active_link_to(name = nil, options = nil, html_options = nil, &block)
         active_class = html_options[:active] || "bg-gray-900"
         inactive_class = html_options[:active] || "hover:bg-gray-700"

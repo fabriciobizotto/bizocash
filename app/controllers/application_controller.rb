@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+    include Pagy::Backend
+
     before_action :configure_permited_parameters, if: :devise_controller?
     around_action :rescue_from_fk_contraint, only: [:destroy]
     around_action :rescue_from_un_contraint, only: [:create, :update]
