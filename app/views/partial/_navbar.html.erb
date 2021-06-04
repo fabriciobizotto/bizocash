@@ -17,14 +17,16 @@
       </div>
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
         <div class="flex-shrink-0 flex items-center">
-          <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
-          <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow">
+          <%= image_tag "logo2.png", class: 'block lg:hidden h-8 w-auto', alt:"money" %>
+          <%= image_tag "logo2.png", class: 'hidden lg:block h-8 w-auto', alt:"money" %>
         </div>
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
-            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <%= active_link_to "Dashboard", root_path, :class => "text-white px-3 py-2 rounded-md text-sm font-medium" %>
-            <%= active_link_to "Contas", accounts_path, :class => "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+            <% if current_user %>
+              <%= active_link_to "Dashboard", root_path, :class => "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+              <%= active_link_to "Contas", accounts_path, :class => "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+              <%= active_link_to "Tags", tags_path, :class => "text-white px-3 py-2 rounded-md text-sm font-medium" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -67,11 +69,14 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="sm:hidden" id="mobile-menu" 
     x-show="isMobileNavOpen"
-     @click.away="isMobileNavOpen = false">
+    @click.away="isMobileNavOpen = false">
     <div class="px-2 pt-2 pb-3 space-y-1">
-      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-      <%= active_link_to "Dashboard", root_path, :class => "text-white px-3 py-2 block rounded-md text-sm font-medium" %>
-      <%= active_link_to "Contas", accounts_path, :class => "text-white px-3 py-2 block rounded-md text-sm font-medium" %>
+      <% if current_user %>
+        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+        <%= active_link_to "Dashboard", root_path, :class => "text-white px-3 py-2 block rounded-md text-sm font-medium" %>
+        <%= active_link_to "Contas", accounts_path, :class => "text-white px-3 py-2 block rounded-md text-sm font-medium" %>
+        <%= active_link_to "Tags", tags_path, :class => "text-white px-3 py-2 block rounded-md text-sm font-medium" %>
+      <% end %>
     </div>
   </div>
 </nav>

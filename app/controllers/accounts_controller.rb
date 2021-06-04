@@ -3,7 +3,7 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @pagy, @accounts = pagy(Account.all)
+    @pagy, @accounts = pagy(Account.search(params[:search]))
   end
 
   # GET /accounts/1 or /accounts/1.json
@@ -68,7 +68,7 @@ class AccountsController < ApplicationController
     end
 
     def account_params
-      params.require(:account).permit(:name, :active, :investment).
+      params.require(:account).permit(:name, :active, :investment, :search).
       merge(user: current_user)
     end
 end

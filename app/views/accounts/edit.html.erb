@@ -9,5 +9,9 @@
     <%= render 'form', account: @account %>
 
     <%= link_to "Voltar", accounts_path, class: "button bg-white-500 hover:bg-white-700 font-bold focus:outline-none py-2 focus:shadow-outline" %>
+
+    <% if @account.persisted? %>
+      <%= link_to 'Delete', @account, class: "button text-red-500 hover:text-red-700 font-bold focus:outline-none py-2 focus:shadow-outline", method: :delete, data: { remote: true, confirm: "Are you sure?" } %>
+    <% end %>
   </div>
 </div>

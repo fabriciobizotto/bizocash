@@ -1,36 +1,34 @@
 <%- model = Tag %>
 
-<div class="flex flex-col mt-2">
+<div class="flex flex-col">
   <div class="-my-1 overflow-x-auto">
     <div class="py-1 inline-block min-w-full">
-      <div class="shadow overflow-hidden border-b border-gray-600">
+      <div class="shadow overflow-hidden border-b border-gray-300">
 
         <div class="pb-4 pl-4 bg-white">
-          <div class="flex pt-4">
-            <%= link_to new_tag_path, class: '' do %>
+          <div class="flex flex-row pt-4">
+            <%= link_to new_tag_path, class: 'flex-1 text-green-600 hover:text-green-500' do %>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             <% end %>
-
-            <p class="ml-3 text-2xl">Tags</p>
+            <p class="flex-1 ml-3 text-2xl"><%= model.model_name.human.pluralize %></p>
+            <div class="justify-end pr-2">
+              <%= render "partial/filter_table", path: tags_path %>
+            </div>
           </div>
         </div>
 
-        <%= content_tag :table, id: "tags_datatable", class: 'min-w-full divide-y divide-gray-200', role: :datatable, data: { url: tags_path(format: :json)} do %>
-        <thead class="bg-gray-50">
-          <tr>
-                        <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell">
-              <%= model.human_attribute_name(:name) %>
-            </th>
-                        <th scope="col" class="p-3 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell">
-              <%= model.human_attribute_name(:active) %>
-            </th>
-            <th><%= t('helpers.actions') %></th>
-          </tr>
-        </thead>
-        
-        <tbody class="bg-white divide-y divide-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell"><%= model.human_attribute_name(:name) %></th>
+                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell"><%= model.human_attribute_name(:active) %></th>
+                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell">Ações</th>
+            </tr>
+          </thead>
+
+          <tbody class="bg-white divide-y divide-gray-200">
           <% if @tags.empty? %>
             <%= content_tag :tr do %>	
               <td colspan=3 class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
@@ -38,28 +36,36 @@
               </td>
             <% end %>
           <% end %>
-          <% @tags.each do |tag| %>
-            <%= content_tag :tr, id: dom_id(tag), class: dom_class(tag) do %>	
-                <td class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
-                  <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">name</span>
-                  <%= tag.name %>
+            <% @tags.each do |tag| %>
+              <%= content_tag :tr, id: dom_id(tag), class: 'bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0' do %>
+                <td class="w-full lg:w-auto p-2 text-gray-800 border border-b border border-b block lg:table-cell relative lg:static">
+                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= model.human_attribute_name(:name) %></span>
+                    <%= link_to tag.name, edit_tag_path(tag), class: 'text-blue-400 hover:text-blue-600' %>
                 </td>
-                <td class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
-                  <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">active</span>
-                  <%= tag.active %>
+                <td class="w-full lg:w-auto p-2 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
+                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= model.human_attribute_name(:active) %></span>
+                    <%= render "partial/icon_check", success: tag.active %>
                 </td>
-                            <td class="w-full lg:w-auto p-3 text-gray-800 block text-center border border-b lg:table-cell relative lg:static">
-                <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= t('helpers.actions') %></span>
-                <%= link_to 'Show', tag %>
-                <%= link_to 'Edit', edit_tag_path(tag), class: 'text-blue-400 hover:text-blue-600 underline' %>
-                <%= link_to 'Delete', tag_path(tag), method: :delete, class: 'text-blue-400 hover:text-blue-600 underline' %>
-              </td>
+
+                <td class="w-full lg:w-auto p-2 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
+                  <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
+                  <button>
+                    <%= link_to tag_path(tag), class: 'text-red-400 hover:text-red-600', method: :delete, data: { remote: false, confirm: "Tem Certeza?" } do %>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    <% end %>
+                  </button>
+                </td>
+              <% end %>
             <% end %>
-          <% end %>
-        </tbody>
-      <% end %>
-        
+          </tbody>
+        </table>
+
       </div>
+      <div class="flex-1 p-2 bg-white">
+        <div class="justify-end"><%== pagy_nav(@pagy) %></div>
+      </div>  
     </div>
   </div>
 </div>

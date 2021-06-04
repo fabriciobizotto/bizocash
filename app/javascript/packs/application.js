@@ -14,3 +14,11 @@ import "../styles/application.scss"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+document.addEventListener("turbolinks:load", () => {
+    const elemento = document.querySelector('#filter-clean')
+    elemento.addEventListener('click', () => {
+        alert('Oi')
+    })
+});

@@ -3,7 +3,7 @@ class TagsController < ApplicationController
 
   # GET /tags or /tags.json
   def index
-    @tags = Tag.all
+    @pagy, @tags = pagy(Tag.search(params[:search]))
   end
 
   # GET /tags/1 or /tags/1.json
@@ -64,6 +64,6 @@ class TagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tag_params
-      params.require(:tag).permit(:name, :active, :user_id).merge(user:current_user)
+      params.require(:tag).permit(:name, :active, :user_id, :search).merge(user:current_user)
     end
 end
