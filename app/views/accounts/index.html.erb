@@ -1,77 +1,76 @@
 <%- model = Account %>
 
 <div class="flex flex-col">
-  <div class="-my-1 overflow-x-auto">
-    <div class="py-1 inline-block min-w-full">
-      <div class="shadow overflow-hidden border-b border-gray-300">
+    <div class="-my-1 overflow-x-auto">
+        <div class="py-1 inline-block min-w-full">
+            <div class="shadow overflow-hidden border-b border-gray-300">
 
-        <div class="pb-4 pl-4 bg-white">
-          <div class="flex flex-row pt-4">
-            <%= link_to new_account_path, class: 'flex-1 text-green-600 hover:text-green-500' do %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            <% end %>
-            <p class="flex-1 ml-3 text-2xl"><%= model.model_name.human.pluralize %></p>
-            <div class="justify-end pr-2">
-              <%= render "partial/filter_table", path: accounts_path %>
+                <div class="pb-4 pl-4 bg-white">
+                    <div class="flex flex-row pt-4">
+                        <%= link_to new_account_path, class: 'flex-1 text-green-600 hover:text-green-500' do %>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <% end %>
+                        <p class="flex-1 ml-3 text-2xl"><%= model.model_name.human.pluralize %></p>
+                        <div class="justify-end pr-2 pl-2">
+                            <%= render "partial/filter_table", path: accounts_path %>
+                        </div>
+                    </div>
+                </div>
+
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden sm:table-cell"><%= model.human_attribute_name(:name) %></th>
+                            <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden sm:table-cell"><%= model.human_attribute_name(:active) %></th>
+                            <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden sm:table-cell"><%= model.human_attribute_name(:investment) %></th>
+                            <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden sm:table-cell"></th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <% if @accounts.empty? %>
+                        <%= content_tag :tr do %>
+                        <td colspan=4 class="w-full sm:w-auto p-3 text-gray-800 border border-b text-center block sm:table-cell relative sm:static">
+                            Nenhum registro encontrado
+                        </td>
+                        <% end %>
+                        <% end %>
+                        <% @accounts.each do |account| %>
+                        <%= content_tag :tr, id: dom_id(account), class: 'bg-white sm:hover:bg-gray-100 flex sm:table-row flex-row sm:flex-row flex-wrap sm:flex-no-wrap mb-10 sm:mb-0' do %>
+                        <td class="w-full sm:w-auto p-2 text-gray-600 border border-b block sm:table-cell relative sm:static text-center sm:text-left">
+                            <span class="sm:hidden absolute top-0 right-0 bg-gray-50 px-2 py-1 text-xs"><%= model.human_attribute_name(:name) %></span>
+                            <%= link_to account.name, edit_account_path(account), class: 'text-blue-400 hover:text-blue-600 underline' %>
+                        </td>
+                        <td class="w-full sm:w-auto p-1 text-gray-600 text-center border border-b block sm:table-cell relative sm:static">
+                            <span class="sm:hidden absolute top-0 right-0 bg-gray-50 px-2 py-1 text-xs"><%= model.human_attribute_name(:active) %></span>
+                            <%= render "partial/icon_check", success: account.active %>
+                        </td>
+                        <td class="w-full sm:w-auto p-1 text-gray-600 text-center border border-b block sm:table-cell relative sm:static">
+                            <span class="sm:hidden absolute top-0 right-0 bg-gray-50 px-2 py-1 text-xs "><%= model.human_attribute_name(:investment) %></span>
+                            <%= render "partial/icon_check", success: account.investment %>
+                        </td>
+
+                        <td class="w-full sm:w-auto p-2 text-gray-600 border border-b text-center block sm:table-cell relative sm:static">
+                            <button>
+                                <%= link_to account_path(account), class: 'text-red-400 hover:text-red-600', method: :delete, data: { remote: false, confirm: "Tem Certeza?" } do %>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                <% end %>
+                            </button>
+                        </td>
+                        <% end %>
+                        <% end %>
+                    </tbody>
+                </table>
+
             </div>
-          </div>
+            <div class="flex-1 p-2 bg-white">
+                <div class="justify-end"><%== pagy_nav(@pagy) %></div>
+            </div>
         </div>
 
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-50">
-            <tr>
-                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell"><%= model.human_attribute_name(:name) %></th>
-                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell"><%= model.human_attribute_name(:active) %></th>
-                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell"><%= model.human_attribute_name(:investment) %></th>
-                <th scope="col" class="p-2 font-bold uppercase bg-gray-200 text-gray-600 hidden lg:table-cell">Ações</th>
-            </tr>
-          </thead>
-
-          <tbody class="bg-white divide-y divide-gray-200">
-          <% if @accounts.empty? %>
-            <%= content_tag :tr do %>	
-              <td colspan=4 class="w-full lg:w-auto p-3 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
-                  Nenhum registro encontrado
-              </td>
-            <% end %>
-          <% end %>
-            <% @accounts.each do |account| %>
-              <%= content_tag :tr, id: dom_id(account), class: 'bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0' do %>
-                <td class="w-full lg:w-auto p-2 text-gray-800 border border-b border border-b block lg:table-cell relative lg:static">
-                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= model.human_attribute_name(:name) %></span>
-                    <%= link_to account.name, edit_account_path(account), class: 'text-blue-400 hover:text-blue-600 underline' %>
-                </td>
-                <td class="w-full lg:w-auto p-1 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
-                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= model.human_attribute_name(:active) %></span>
-                    <%= render "partial/icon_check", success: account.active %>
-                </td>
-                <td class="w-full lg:w-auto p-1 text-gray-800 border border-b text-center border border-b text-center block lg:table-cell relative lg:static">
-                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase"><%= model.human_attribute_name(:investment) %></span>
-                    <%= render "partial/icon_check", success: account.investment %>
-                </td>
-
-                <td class="text-gray-800 border border-b border border-b text-center lg:table-cell relative lg:static">
-                    <span class="lg:hidden absolute top-0 left-0 bg-blue-200 px-2 py-1 text-xs font-bold uppercase">Actions</span>
-                    <button>
-                      <%= link_to account_path(account), class: 'text-red-400 hover:text-red-600', method: :delete, data: { remote: false, confirm: "Tem Certeza?" } do %>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                      <% end %>
-                    </button>
-                </td>
-              <% end %>
-            <% end %>
-          </tbody>
-        </table>
-
-      </div>
-      <div class="flex-1 p-2 bg-white">
-        <div class="justify-end"><%== pagy_nav(@pagy) %></div>
-      </div>  
     </div>
-    
-  </div>
 </div>
